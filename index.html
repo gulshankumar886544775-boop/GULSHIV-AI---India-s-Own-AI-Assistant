@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GULSHIV AI</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ background:#080808;
+ color:white;
+ font-family:Arial,sans-serif;
+}
+header{
+ padding:20px;
+ text-align:center;
+ border-bottom:1px solid #b89445;
+ color:#e9c46a;
+ font-size:23px;
+ font-weight:bold;
+ letter-spacing:2px;
+}
+.subtitle{
+ text-align:center;
+ color:#aaa;
+ font-size:12px;
+ margin-top:8px;
+}
+.robot{
+ text-align:center;
+ font-size:65px;
+ margin-top:65px;
+}
+h2{
+ text-align:center;
+ color:#e9c46a;
+}
+.welcome{
+ text-align:center;
+ color:#aaa;
+ font-size:14px;
+}
+#chat{
+ padding:15px;
+ height:48vh;
+ overflow-y:auto;
+}
+.msg{
+ padding:13px;
+ margin:10px 0;
+ border-radius:12px;
+ max-width:85%;
+ line-height:1.5;
+}
+.user{
+ background:#9b772f;
+ margin-left:auto;
+}
+.bot{
+ background:#202020;
+ border:1px solid #b89445;
+}
+.inputbox{
+ position:fixed;
+ bottom:0;
+ width:100%;
+ background:#111;
+ padding:12px;
+ display:flex;
+ gap:7px;
+}
+input{
+ flex:1;
+ min-width:0;
+ padding:14px;
+ border-radius:25px;
+ border:1px solid #b89445;
+ background:#222;
+ color:white;
+ outline:none;
+}
+button{
+ border:0;
+ border-radius:25px;
+ padding:12px;
+ background:#d6ad55;
+ color:black;
+ font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<header>GULSHIV AI</header>
+
+<div class="subtitle">INDIA'S AI ASSISTANT 🇮🇳</div>
+
+<div class="robot">🤖</div>
+<h2>Hello, I'm GULSHIV AI</h2>
+<p class="welcome">Your Intelligence. Your India.</p>
+
+<div id="chat">
+ <div class="msg bot">
+ Namaste! 🙏 Main GULSHIV AI hoon. Aapki kya madad kar sakta hoon?
+ </div>
+</div>
+
+<div class="inputbox">
+<input id="question" placeholder="Ask anything...">
+<button onclick="send()">Send</button>
+<button onclick="voice()">🎙️</button>
+</div>
+
+<script>
+function add(text,type){
+ let box=document.getElementById("chat");
+ let msg=document.createElement("div");
+ msg.className="msg "+type;
+ msg.textContent=text;
+ box.appendChild(msg);
+ box.scrollTop=box.scrollHeight;
+}
+
+function send(){
+ let input=document.getElementById("question");
+ let q=input.value.trim();
+ if(!q)return;
+
+ add(q,"user");
+ input.value="";
+
+ add("Abhi mera AI Brain connect nahi hua hai. Jaldi hi main aapke sawalon ka jawab de paunga. 🤖","bot");
+}
+
+function voice(){
+ const SpeechRecognition=window.SpeechRecognition || window.webkitSpeechRecognition;
+ if(!SpeechRecognition){
+ alert("Voice input is not supported in this browser.");
+ return;
+ }
+ let r=new SpeechRecognition();
+ r.lang="hi-IN";
+ r.onresult=e=>{
+ document.getElementById("question").value=e.results[0][0].transcript;
+ };
+ r.start();
+}
+
+document.getElementById("question").addEventListener("keypress",e=>{
+ if(e.key==="Enter")send();
+});
+</script>
+
+</body>
+</html>
